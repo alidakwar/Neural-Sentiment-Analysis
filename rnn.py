@@ -30,14 +30,14 @@ class RNN(nn.Module):
         return self.loss(predicted_vector, gold_label)
 
     def forward(self, inputs):
-        # [to fill] obtain hidden layer representation (https://pytorch.org/docs/stable/generated/torch.nn.RNN.html)
-        _, hidden = 
-        # [to fill] obtain output layer representations
-
-        # [to fill] sum over output 
-
-        # [to fill] obtain probability dist.
-
+        # Obtain hidden representations from the RNN
+        output, hidden = self.rnn(inputs)  # output shape: (seq_len, batch, hidden_dim)
+        # Apply linear transformation to each time step's output
+        outputs_linear = self.W(output)  # shape: (seq_len, batch, 5)
+        # Sum over the time steps to get a single representation for the sequence
+        summed_outputs = torch.sum(outputs_linear, dim=0)  # shape: (batch, 5)
+        # Apply softmax to obtain the final probability distribution (log probabilities)
+        predicted_vector = self.softmax(summed_outputs)
         return predicted_vector
 
 
