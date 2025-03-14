@@ -170,14 +170,10 @@ if __name__ == "__main__":
             stopping_condition=True
             print("Training done to avoid overfitting!")
             print("Best validation accuracy is:", last_validation_accuracy)
+            torch.save(model.state_dict(), "rnn_model.pth")
+            print("Model saved as rnn_model.pth")
         else:
             last_validation_accuracy = validation_accuracy
             last_train_accuracy = trainning_accuracy
 
         epoch += 1
-
-
-
-    # You may find it beneficial to keep track of training accuracy or training loss;
-
-    # Think about how to update the model and what this entails. Consider ffnn.py and the PyTorch documentation for guidance
